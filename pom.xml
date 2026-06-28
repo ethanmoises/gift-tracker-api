@@ -69,14 +69,13 @@
 			<version>2.8.9</version>
 		</dependency>
 
-		<!-- CSV -->
+
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
 			<version>5.12.0</version>
 		</dependency>
 
-		<!-- MAPSTRUCT -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -88,7 +87,6 @@
 	<build>
 		<plugins>
 
-			<!-- COMPILER -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -106,7 +104,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- SPRING BOOT -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
