@@ -6,9 +6,7 @@ spring:
     name: gift
 
   datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
-    username: ${PGUSER}
-    password: ${PGPASSWORD}
+    url: ${DATABASE_URL}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -19,4 +17,4 @@ spring:
 
     properties:
       hibernate:
-        format_sql: true
+        format_sql: true.g
