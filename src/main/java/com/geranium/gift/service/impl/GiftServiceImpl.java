@@ -16,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -68,8 +69,8 @@ public class GiftServiceImpl implements GiftService {
     @Transactional(readOnly = true)
     public List<GiftResponseDTO> getAllGifts(String idea,
                                              GiftStatus status,
-                                             Double minPrice,
-                                             Double maxPrice,
+                                             BigDecimal minPrice,
+                                             BigDecimal maxPrice,
                                              String personName) {
 
         Specification<Gift> spec = Specification
@@ -93,11 +94,7 @@ public class GiftServiceImpl implements GiftService {
                         new ResourceNotFoundException(
                                 "Gift not found with id: " + id));
 
-        gift.setIdea(request.idea());
-        gift.setPrice(request.price());
-        gift.setLink(request.link());
-        gift.setStatus(request.status());
-
+        giftMapper.updateEntity(request, gift);
 
         return giftMapper.toResponseDTO(gift);
     }

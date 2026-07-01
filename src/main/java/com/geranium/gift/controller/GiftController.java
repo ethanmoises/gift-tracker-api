@@ -9,8 +9,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
-
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -69,10 +69,10 @@ public class GiftController {
             GiftStatus status,
 
             @RequestParam(required = false)
-            Double minPrice,
+            BigDecimal minPrice,
 
             @RequestParam(required = false)
-            Double maxPrice,
+            BigDecimal maxPrice,
 
             @RequestParam(required = false)
             String personName) {

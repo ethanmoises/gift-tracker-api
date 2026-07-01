@@ -2,8 +2,10 @@ package com.geranium.gift.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.geranium.gift.model.enums.Occasion;
+import com.geranium.gift.model.enums.Relationship;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,20 +21,26 @@ public class Person {
     @Enumerated(EnumType.STRING)
     private Occasion occasion;
 
+    private LocalDate eventDate;
+
+    @Enumerated(EnumType.STRING)
+    private Relationship relationship;
+
+    @Column(length = 1000)
     private String notes;
+
+    private String imageUrl;
 
     @OneToMany(
             mappedBy = "person",
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.EAGER
+            orphanRemoval = true
     )
     @JsonManagedReference
     private List<Gift> gifts = new ArrayList<>();
 
     public Person() {
     }
-
 
     public void addGift(Gift gift) {
         gifts.add(gift);
@@ -43,7 +51,6 @@ public class Person {
         gifts.remove(gift);
         gift.setPerson(null);
     }
-
 
     public Long getId() {
         return id;
@@ -57,8 +64,20 @@ public class Person {
         return occasion;
     }
 
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+    public Relationship getRelationship() {
+        return relationship;
+    }
+
     public String getNotes() {
         return notes;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public List<Gift> getGifts() {
@@ -77,8 +96,20 @@ public class Person {
         this.occasion = occasion;
     }
 
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
+    }
+
+    public void setRelationship(Relationship relationship) {
+        this.relationship = relationship;
+    }
+
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public void setGifts(List<Gift> gifts) {
@@ -91,7 +122,10 @@ public class Person {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", occasion=" + occasion +
+                ", eventDate=" + eventDate +
+                ", relationship=" + relationship +
                 ", notes='" + notes + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

@@ -4,6 +4,8 @@ import com.geranium.gift.model.entity.Gift;
 import com.geranium.gift.model.enums.GiftStatus;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.math.BigDecimal;
+
 public class GiftSpecification {
 
     public static Specification<Gift> ideaContains(String idea) {
@@ -29,7 +31,7 @@ public class GiftSpecification {
         };
     }
 
-    public static Specification<Gift> priceBetween(Double min, Double max) {
+    public static Specification<Gift> priceBetween(BigDecimal min, BigDecimal max) {
         return (root, query, cb) -> {
 
             if (min == null && max == null) {

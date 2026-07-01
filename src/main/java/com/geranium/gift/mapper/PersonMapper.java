@@ -15,12 +15,12 @@ public interface PersonMapper {
 
     PersonResponseDTO toResponseDTO(Person person);
 
+    void updateEntity(PersonRequestDTO dto, @MappingTarget Person person);
+
     @AfterMapping
     default void setPersonOnGifts(@MappingTarget Person person) {
-
         if (person.getGifts() != null) {
-            person.getGifts()
-                    .forEach(gift -> gift.setPerson(person));
+            person.getGifts().forEach(gift -> gift.setPerson(person));
         }
     }
 }

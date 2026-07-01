@@ -31,8 +31,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonResponseDTO createPerson(
-            PersonRequestDTO request) {
+    public PersonResponseDTO createPerson(PersonRequestDTO request) {
 
         Person person = personMapper.toEntity(request);
 
@@ -83,10 +82,7 @@ public class PersonServiceImpl implements PersonService {
                         new ResourceNotFoundException(
                                 "Person not found with id: " + id));
 
-        person.setName(request.name());
-        person.setOccasion(request.occasion());
-        person.setNotes(request.notes());
-
+        personMapper.updateEntity(request, person);
 
         return personMapper.toResponseDTO(person);
     }
