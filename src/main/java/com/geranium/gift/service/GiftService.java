@@ -3,6 +3,7 @@ package com.geranium.gift.service;
 import com.geranium.gift.model.dto.GiftRequestDTO;
 import com.geranium.gift.model.dto.GiftResponseDTO;
 import com.geranium.gift.model.enums.GiftStatus;
+import com.geranium.gift.model.enums.Priority;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,8 +18,11 @@ public interface GiftService {
     List<GiftResponseDTO> getAllGifts(
             String idea,
             GiftStatus status,
+            Priority priority,
             BigDecimal minPrice,
             BigDecimal maxPrice,
+            BigDecimal minBudget,
+            BigDecimal maxBudget,
             String personName
     );
 

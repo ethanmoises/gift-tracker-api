@@ -2,6 +2,7 @@ package com.geranium.gift.repository.specification;
 
 import com.geranium.gift.model.entity.Gift;
 import com.geranium.gift.model.enums.GiftStatus;
+import com.geranium.gift.model.enums.Priority;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.math.BigDecimal;
@@ -31,6 +32,16 @@ public class GiftSpecification {
         };
     }
 
+    public static Specification<Gift> hasPriority(Priority priority) {
+        return (root, query, cb) -> {
+            if (priority == null) {
+                return cb.conjunction();
+            }
+
+            return cb.equal(root.get("priority"), priority);
+        };
+    }
+
     public static Specification<Gift> priceBetween(BigDecimal min, BigDecimal max) {
         return (root, query, cb) -> {
 
@@ -47,6 +58,25 @@ public class GiftSpecification {
             }
 
             return cb.between(root.get("price"), min, max);
+        };
+    }
+
+    public static Specification<Gift> budgetBetween(BigDecimal min, BigDecimal max) {
+        return (root, query, cb) -> {
+
+            if (min == null && max == null) {
+                return cb.conjunction();
+            }
+
+            if (min == null) {
+                return cb.lessThanOrEqualTo(root.get("budget"), max);
+            }
+
+            if (max == null) {
+                return cb.greaterThanOrEqualTo(root.get("budget"), min);
+            }
+
+            return cb.between(root.get("budget"), min, max);
         };
     }
 

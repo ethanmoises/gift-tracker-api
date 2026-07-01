@@ -7,6 +7,7 @@ import com.geranium.gift.model.dto.GiftResponseDTO;
 import com.geranium.gift.model.entity.Gift;
 import com.geranium.gift.model.entity.Person;
 import com.geranium.gift.model.enums.GiftStatus;
+import com.geranium.gift.model.enums.Priority;
 import com.geranium.gift.repository.GiftRepository;
 import com.geranium.gift.repository.PersonRepository;
 import com.geranium.gift.repository.specification.GiftSpecification;
@@ -67,16 +68,22 @@ public class GiftServiceImpl implements GiftService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<GiftResponseDTO> getAllGifts(String idea,
-                                             GiftStatus status,
-                                             BigDecimal minPrice,
-                                             BigDecimal maxPrice,
-                                             String personName) {
+    public List<GiftResponseDTO> getAllGifts(
+            String idea,
+            GiftStatus status,
+            Priority priority,
+            BigDecimal minPrice,
+            BigDecimal maxPrice,
+            BigDecimal minBudget,
+            BigDecimal maxBudget,
+            String personName) {
 
         Specification<Gift> spec = Specification
                 .where(GiftSpecification.ideaContains(idea))
                 .and(GiftSpecification.hasStatus(status))
+                .and(GiftSpecification.hasPriority(priority))
                 .and(GiftSpecification.priceBetween(minPrice, maxPrice))
+                .and(GiftSpecification.budgetBetween(minBudget, maxBudget))
                 .and(GiftSpecification.belongsToPerson(personName));
 
         return giftRepository.findAll(spec, Sort.by("price"))

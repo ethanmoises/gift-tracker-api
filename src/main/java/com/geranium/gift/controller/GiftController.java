@@ -3,6 +3,7 @@ package com.geranium.gift.controller;
 import com.geranium.gift.model.dto.GiftRequestDTO;
 import com.geranium.gift.model.dto.GiftResponseDTO;
 import com.geranium.gift.model.enums.GiftStatus;
+import com.geranium.gift.model.enums.Priority;
 import com.geranium.gift.service.GiftService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -69,10 +70,19 @@ public class GiftController {
             GiftStatus status,
 
             @RequestParam(required = false)
+            Priority priority,
+
+            @RequestParam(required = false)
             BigDecimal minPrice,
 
             @RequestParam(required = false)
             BigDecimal maxPrice,
+
+            @RequestParam(required = false)
+            BigDecimal minBudget,
+
+            @RequestParam(required = false)
+            BigDecimal maxBudget,
 
             @RequestParam(required = false)
             String personName) {
@@ -80,8 +90,11 @@ public class GiftController {
         return giftService.getAllGifts(
                 idea,
                 status,
+                priority,
                 minPrice,
                 maxPrice,
+                minBudget,
+                maxBudget,
                 personName
         );
     }
