@@ -2,7 +2,10 @@ package com.geranium.gift.repository.specification;
 
 import com.geranium.gift.model.entity.Person;
 import com.geranium.gift.model.enums.Occasion;
+import com.geranium.gift.model.enums.Relationship;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.time.LocalDate;
 
 public class PersonSpecification {
 
@@ -30,6 +33,34 @@ public class PersonSpecification {
             return cb.equal(
                     root.get("occasion"),
                     occasion
+            );
+        };
+    }
+
+    public static Specification<Person> hasRelationship(Relationship relationship) {
+        return (root, query, cb) -> {
+
+            if (relationship == null) {
+                return cb.conjunction();
+            }
+
+            return cb.equal(
+                    root.get("relationship"),
+                    relationship
+            );
+        };
+    }
+
+    public static Specification<Person> hasEventDate(LocalDate eventDate) {
+        return (root, query, cb) -> {
+
+            if (eventDate == null) {
+                return cb.conjunction();
+            }
+
+            return cb.equal(
+                    root.get("eventDate"),
+                    eventDate
             );
         };
     }

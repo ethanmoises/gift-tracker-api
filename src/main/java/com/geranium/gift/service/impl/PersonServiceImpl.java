@@ -6,6 +6,7 @@ import com.geranium.gift.model.dto.PersonRequestDTO;
 import com.geranium.gift.model.dto.PersonResponseDTO;
 import com.geranium.gift.model.entity.Person;
 import com.geranium.gift.model.enums.Occasion;
+import com.geranium.gift.model.enums.Relationship;
 import com.geranium.gift.repository.PersonRepository;
 import com.geranium.gift.repository.specification.PersonSpecification;
 import com.geranium.gift.service.PersonService;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -57,11 +59,15 @@ public class PersonServiceImpl implements PersonService {
     public List<PersonResponseDTO> getAllPersons(
             String name,
             Occasion occasion,
+            Relationship relationship,
+            LocalDate eventDate,
             String keyword) {
 
         Specification<Person> spec = Specification
                 .where(PersonSpecification.hasName(name))
                 .and(PersonSpecification.hasOccasion(occasion))
+                .and(PersonSpecification.hasRelationship(relationship))
+                .and(PersonSpecification.hasEventDate(eventDate))
                 .and(PersonSpecification.hasKeyword(keyword));
 
         return personRepository.findAll(

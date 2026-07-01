@@ -3,12 +3,14 @@ package com.geranium.gift.controller;
 import com.geranium.gift.model.dto.PersonRequestDTO;
 import com.geranium.gift.model.dto.PersonResponseDTO;
 import com.geranium.gift.model.enums.Occasion;
+import com.geranium.gift.model.enums.Relationship;
 import com.geranium.gift.service.PersonService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -43,11 +45,29 @@ public class PersonController {
     @Operation(summary = "Retrieve all persons with optional filters")
     @GetMapping
     public List<PersonResponseDTO> getAllPersons(
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) Occasion occasion,
-            @RequestParam(required = false) String keyword) {
 
-        return personService.getAllPersons(name, occasion, keyword);
+            @RequestParam(required = false)
+            String name,
+
+            @RequestParam(required = false)
+            Occasion occasion,
+
+            @RequestParam(required = false)
+            Relationship relationship,
+
+            @RequestParam(required = false)
+            LocalDate eventDate,
+
+            @RequestParam(required = false)
+            String keyword) {
+
+        return personService.getAllPersons(
+                name,
+                occasion,
+                relationship,
+                eventDate,
+                keyword
+        );
     }
 
     @Operation(summary = "Update an existing person")
