@@ -28,7 +28,7 @@ springdoc:
     path: /swagger-ui.html
 
 minio:
-  endpoint: http://localhost:9000
-  access-key: minioadmin
-  secret-key: minioadmin123
-  bucket: gift-images
+  endpoint: https://t3.storageapi.dev
+  access-key: tid_iFqhjhmOuLrateGrgocUAFjDIDgGhwPjbnXTGmtlYkszOkjh_d
+  secret-key: tsec_vFBAqbt5k6kMt9j-WZDtPXWPMAgCQ5InuRy8EI+AbYK-pc03V7JTB8tp4melrClXUexBL4
+  bucket: optimized-piggybank-fm-x8w
