@@ -7,6 +7,6 @@ spring:
 
 minio:
   endpoint: http://bucket.railway.internal:9000
-  access-key: cZTpf66iOs7g470NaFAHdKIEaFdmrXBz
-  secret-key: bFUYS2BrSPip77iqvEs5gt03TcZhagz2ismohn0sExXY7EF1
+  access-key: cZTpf66iOs7g47ONaFAHdKIEaFdmrXBz
+  secret-key: bFUYS2BrSPip77iqvEs5gt03TcZhagz2ismohnOsExXY7EF1
   bucket: gift-images
