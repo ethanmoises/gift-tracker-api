@@ -4,6 +4,7 @@ import com.geranium.gift.model.enums.GiftStatus;
 import com.geranium.gift.model.enums.Priority;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public record GiftResponseDTO(
 
@@ -23,9 +24,9 @@ public record GiftResponseDTO(
 
         String link,
 
-        String imageUrl,
+        GiftStatus status,
 
-        GiftStatus status
+        List<GiftImageResponseDTO> images
 
 ) {
 }

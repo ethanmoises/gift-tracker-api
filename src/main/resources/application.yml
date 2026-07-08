@@ -7,12 +7,6 @@ spring:
   application:
     name: gift
 
-  datasource:
-    url: jdbc:postgresql://postgres.railway.internal:5432/railway
-    username: postgres
-    password: qUdFBwSCWzPKBgYbUXFilvmkpqqzOZrf
-    driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
@@ -26,9 +20,3 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
-
-minio:
-  endpoint: https://t3.storageapi.dev
-  access-key: tid_iFqhjhmOuLrateGrgocUAFjDIDgGhwPjbnXTGmtlYkszOkjh_d
-  secret-key: tsec_vFBAqbt5k6kMt9j-WZDtPXWPMAgCQ5InuRy8EI+AbYK-pc03V7JTB8tp4melrClXUexBL4
-  bucket: optimized-piggybank-fm-x8w

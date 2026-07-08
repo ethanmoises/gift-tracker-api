@@ -6,7 +6,10 @@ import com.geranium.gift.model.entity.Gift;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+        componentModel = "spring",
+        uses = GiftImageMapper.class
+)
 public interface GiftMapper {
 
     Gift toEntity(GiftRequestDTO dto);

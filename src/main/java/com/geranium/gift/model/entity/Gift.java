@@ -1,11 +1,14 @@
 package com.geranium.gift.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.geranium.gift.model.enums.GiftStatus;
 import com.geranium.gift.model.enums.Priority;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Gift {
@@ -32,8 +35,6 @@ public class Gift {
 
     private String link;
 
-    private String imageUrl;
-
     @Enumerated(EnumType.STRING)
     private GiftStatus status;
 
@@ -41,6 +42,14 @@ public class Gift {
     @JoinColumn(name = "person_id")
     @JsonBackReference
     private Person person;
+
+    @JsonManagedReference
+    @OneToMany(
+            mappedBy = "gift",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<GiftImage> images = new ArrayList<>();
 
     public Gift() {
     }
@@ -77,16 +86,16 @@ public class Gift {
         return link;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
     public GiftStatus getStatus() {
         return status;
     }
 
     public Person getPerson() {
         return person;
+    }
+
+    public List<GiftImage> getImages() {
+        return images;
     }
 
     public void setId(Long id) {
@@ -121,16 +130,26 @@ public class Gift {
         this.link = link;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public void setStatus(GiftStatus status) {
         this.status = status;
     }
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void setImages(List<GiftImage> images) {
+        this.images = images;
+    }
+
+    public void addImage(GiftImage image) {
+        images.add(image);
+        image.setGift(this);
+    }
+
+    public void removeImage(GiftImage image) {
+        images.remove(image);
+        image.setGift(null);
     }
 
     @Override
@@ -144,7 +163,6 @@ public class Gift {
                 ", priority=" + priority +
                 ", notes='" + notes + '\'' +
                 ", link='" + link + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
                 ", status=" + status +
                 '}';
     }
