@@ -60,9 +60,10 @@ public class MinioStorageService {
 
             return objectName;
 
-        } catch (IOException | MinioException e) {
-            throw uploadException(e);
-        }
+        }catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
     }
 
     public void delete(String objectName) {
