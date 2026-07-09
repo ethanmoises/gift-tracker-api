@@ -3,6 +3,8 @@ package com.geranium.gift.service;
 import com.geranium.gift.config.MinioProperties;
 import com.geranium.gift.exception.FileDeleteException;
 import com.geranium.gift.exception.FileUploadException;
+import io.minio.GetObjectArgs;
+import io.minio.GetObjectResponse;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
@@ -60,8 +62,24 @@ public class MinioStorageService {
 
             return objectName;
 
-        }catch (IOException | MinioException e) {
+        } catch (IOException | MinioException e) {
             throw uploadException(e);
+        }
+    }
+
+    public GetObjectResponse download(String objectName) {
+
+        try {
+
+            return minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(properties.getBucket())
+                            .object(objectName)
+                            .build()
+            );
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to download file.", e);
         }
     }
 

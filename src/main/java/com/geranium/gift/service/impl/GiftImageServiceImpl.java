@@ -9,6 +9,7 @@ import com.geranium.gift.repository.GiftImageRepository;
 import com.geranium.gift.repository.GiftRepository;
 import com.geranium.gift.service.GiftImageService;
 import com.geranium.gift.service.MinioStorageService;
+import io.minio.GetObjectResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,6 +59,18 @@ public class GiftImageServiceImpl implements GiftImageService {
         GiftImage savedImage = giftImageRepository.save(image);
 
         return giftImageMapper.toResponseDTO(savedImage);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public GetObjectResponse getImage(Long imageId) {
+
+        GiftImage image = giftImageRepository.findById(imageId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Image not found with id: " + imageId));
+
+        return storageService.download(image.getObjectName());
     }
 
     @Override

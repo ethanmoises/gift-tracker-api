@@ -21,8 +21,6 @@ public record GiftRequestDTO(
 
         String link,
 
-        String imageUrl,
-
         GiftStatus status
 
 ) {
